@@ -27,7 +27,6 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
-
       - name: Restore
         run: dotnet restore
 
@@ -38,7 +37,6 @@ jobs:
           echo "=== BUILD (base rules) ==="
           dotnet build --no-restore -c Release | tee build-base.log || true
           dotnet test --no-build -c Release | tee test-base.log || true
-
       - name: Upload base analysis logs
         uses: actions/upload-artifact@v4
         with:
@@ -46,7 +44,6 @@ jobs:
           path: |
             build-base.log
             test-base.log
-
       - name: Build & Test (strict)
         run: |
           # Используем строгий набор правил
@@ -54,7 +51,6 @@ jobs:
           echo "=== BUILD (strict rules) ==="
           dotnet build --no-restore -c Release | tee build-strict.log || true
           dotnet test --no-build -c Release | tee test-strict.log || true
-
       - name: Upload strict analysis logs
         uses: actions/upload-artifact@v4
         with:
